@@ -1,6 +1,7 @@
 from numba import jit
 from multiprocessing import Process, Queue
 import time
+import random
 
 # Función que particiona el arreglo con optimización JIT
 @jit(nopython=True)
@@ -59,8 +60,11 @@ def quick_select_paralelo(arr, izq, der, k, cola):
             cola.put(cola_der.get())
 
 def main():
-    lista_ejemplo = [7, 10, 4, 3, 20, 15, 5, 6, 7, 10, 70, 98, 41, 65, 1, 42, 54, 74, 8, 18, 26, 30]
-    print("Lista :", lista_ejemplo)
+    lista_ejemplo = []
+    for _ in range(1000):
+        lista_ejemplo.append(random.randint(0, 10000))
+    print(lista_ejemplo, '\n\n')
+
     k = int(input("Ingresa el índice k que desea buscar en la lista: "))
     cola_resultado = Queue()
     
@@ -78,3 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
